@@ -27,6 +27,7 @@ rec_result recognizeFromImage(cv::Mat camImg, Trainer *trainer)
     cv::resize(greyImg, sizedImg, trainer->faceSize);
     // Give the image a standard brightness and contrast, in case it was too dark or low contrast.
     cv::equalizeHist(sizedImg, equalizedImg);
+    GaussianBlur( equalizedImg, equalizedImg, cv::Size(7,7), 3 );
 
     // project the test image onto the PCA subspace
     // XXX need to resize

@@ -32,8 +32,8 @@ int main( int argc, const char** argv )
         DIR *dirp;
         struct dirent *entry;
 
-        if(dirp = opendir(imgPath.c_str())){
-            while(entry = readdir(dirp)){
+        if((dirp = opendir(imgPath.c_str()))){
+            while((entry = readdir(dirp))){
                 if(entry->d_name[0] != '.'){
                     files.push_back(string(entry->d_name));
                     cerr << "Found file: " << string(entry->d_name) << endl;
@@ -137,6 +137,7 @@ void detectAndDraw( Mat& img,
             Mat faceRect = smallImg(*r);
             Mat resFace( 100, 100, CV_8UC1 );
             resize(faceRect, resFace, resFace.size(), 0, 0, INTER_LINEAR);
+            GaussianBlur( resFace, resFace, Size(7,7), 3 );
             imshow("result",resFace);
             String imageFName = captureDir;
             stringstream out;
